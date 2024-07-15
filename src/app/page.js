@@ -1,94 +1,43 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
 import styles from "./page.module.css";
 
-export default function Home() {
+export default function Page() {
+  const [numero, setnNumero] = useState(1);
+  const [limite, setLimite] = useState(10);
+  const [resultado, setResultado] = useState([]);
+
+  const generarTabla = () => {
+    const nuevatabla = [];
+    for (let i = 1; i <= limite; i++) {
+      nuevatabla.push(`${numero} x ${i} = ${numero * i}`);
+    }
+    setResultado(nuevatabla);
+  };
+
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div>
+        <h2 className={styles.title2}>Tabla de multiplicar</h2>
+        <label className={styles.text}>
+          Ingrese un número:
+          <input className={styles.input} type="number" value={numero} onChange={(e) => setnNumero(e.target.value)} />
+        </label>
+        <br/>
+        <label className={styles.text}>
+          Ingrese un límite:
+          <input className={styles.input} type="number" value={limite} onChange={(e) => setLimite(e.target.value)} />
+        </label>
+        <br/>
+        <button className={styles.button} onClick={generarTabla}>Generar tabla</button>
+        <hr/>
+        <h3>Resultado</h3>
+        <ul className={styles.ul}>
+          {resultado.map((item, index) => (
+            <li className={styles.li} key={index}>{item}</li>
+          ))}
+        </ul>
       </div>
     </main>
   );
